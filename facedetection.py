@@ -6,7 +6,7 @@ alg = 'haarcascade_frontalface_default.xml'
 
 
 # passing the algorithm to OpenCV
-haar_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
+haar_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml') # type: ignore
 
 # capturing the video feed from the camera
 cam = cv2.VideoCapture(0)
@@ -15,21 +15,23 @@ while True:
 
     text = "Face not detected"
 
-    # convert each frame from BGR to Grayscale
-    #grayImg = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+    #convert each frame from BGR to Grayscale
+    grayImg = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
     # detect faces using Haar Cascade 
     face = haar_cascade.detectMultiScale(image, 1.3, 5)
-
+    
     # draw a rectangle around the face and update the text to Face Detected
     for (x, y, w, h) in face:
-        cv2.rectangle(image, (x, y), (x + w, y + h), (0, 255, 0), 2) 
-    
+        cv2.rectangle(image, (x, y), (x + w, y + h), (0, 255, 0), 2)
+        #cv2.rectangle(image, (1050,110), (250, 630), (0, 255, 0), 2)
+
     image=cv2.flip(image,1)
     cv2.imshow("Face Detection", image)
     key = cv2.waitKey(10)
 
-    if key == 27:
+    # Press `q` to quit
+    if cv2.waitKey(1) & 0xFF == ord('q'):
         break
 
 cam.release()
