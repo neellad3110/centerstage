@@ -58,8 +58,6 @@ height = int(cap.get(4))
 roi_x1, roi_y1 = int(width * 0.15), int(height * 0.15)
 roi_x2, roi_y2 = int(width * 0.85), int(height * 0.85)
 
-print("(",roi_x1,",",roi_y1,") and (",roi_x2,",",roi_y2,")")
-
 while True:
     # Capture frame-by-frame
     ret, frame = cap.read()
