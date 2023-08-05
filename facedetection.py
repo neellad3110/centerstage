@@ -1,5 +1,6 @@
 # importing the required libraries
 import cv2
+import math
 
 
 # Define the video capture source (0 for webcam)
@@ -22,6 +23,12 @@ height = int(cap.get(4))
 #  coordinates according to get ROI 
 roi_x1, roi_y1 = int(width * 0.15), int(height * 0.15)
 roi_x2, roi_y2 = int(width * 0.85), int(height * 0.85)
+
+
+def calculate_distance(point1, point2):
+    return math.sqrt((point2[0] - point1[0]) ** 2 + (point2[1] - point1[1]) ** 2)
+
+
 
 
 # passing the algorithm to OpenCV
@@ -49,6 +56,25 @@ while True:
 
         cv2.rectangle(image, (x, y), (x + w, y + h), (0, 255, 0), 2)
         #cv2.rectangle(image, (1050,110), (250, 630), (0, 255, 0), 2)
+
+        center_x, center_y = x + w // 2, y + h // 2
+        #sCalculate the distance from the screen edges to the face center
+        screen_center_x, screen_center_y = image.shape[1] // 2, image.shape[0] // 2
+        
+        distance_left = calculate_distance((0, center_y), (center_x, center_y))  # Distance to left side
+        distance_right = calculate_distance((image.shape[1] - 1, center_y), (center_x, center_y))  # Distance to right side
+        distance_top = calculate_distance((center_x, 0), (center_x, center_y))  # Distance to top side
+        distance_bottom = calculate_distance((center_x, image.shape[0] - 1), (center_x, center_y))  # Distance to bottom side
+
+
+        # Draw lines from the screen edges to the face center
+        cv2.line(image, (0, center_y), (center_x, center_y), (0, 255, 0), 2)          # Left side
+        cv2.line(image, (image.shape[1]-1, center_y), (center_x, center_y), (0, 255, 0), 2)  # Right side
+        cv2.line(image, (center_x, 0), (center_x, center_y), (0, 255, 0), 2)          # Top side
+        cv2.line(image, (center_x, image.shape[0]-1), (center_x, center_y), (0, 255, 0), 2)  # Bottom side
+
+
+        
 
     image=cv2.flip(image,1)
     cv2.imshow("Center Stage", image)
