@@ -3,7 +3,7 @@ import dlib
 
 video_capture = cv2.VideoCapture(0)
 flag = 0
-dnnFaceDetector = dlib.cnn_face_detection_model_v1("/Users/neellad/Documents/CPP practice/CenterStage/mmod_human_face_detector.dat")
+dnnFaceDetector = dlib.cnn_face_detection_model_v1("/Users/neellad/Documents/CPP practice/CenterStage/extra_test/mmod_human_face_detector.dat")
 while True:
     # Capture frame-by-frame
     ret, frame = video_capture.read()

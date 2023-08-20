@@ -27,7 +27,7 @@ while True:
     #grayImg = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     rgbImg = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
     result=detectface.process(rgbImg)
-    print(result);
+ 
 
     image=cv2.flip(image,1)
     cv2.imshow("Face Detection", image)

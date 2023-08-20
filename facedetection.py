@@ -73,7 +73,7 @@ while True:
         cv2.line(image, (center_x, 0), (center_x, center_y), (0, 255, 0), 2)          # Top side
         cv2.line(image, (center_x, image.shape[0]-1), (center_x, center_y), (0, 255, 0), 2)  # Bottom side
 
-
+        
         
 
     image=cv2.flip(image,1)
